@@ -70,6 +70,26 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
 @media(max-width:900px){.hero-art{min-height:270px}.books-scene{height:225px}}
 @media(max-width:560px){.hero-art{min-height:235px;padding:10px}.books-scene{transform:scale(.84);height:205px}}
 
+
+/* Bibliothèque privée : masquée par défaut. */
+#bibliotheque{display:none!important}
+#bibliotheque.private-open{display:block!important}
+
+.library-public-card,.admin-box{border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow);padding:24px;margin-top:20px}
+.library-public-card{background:linear-gradient(145deg,#f8fcff,#fff 70%,#fff7fb)}
+.admin-box{background:linear-gradient(145deg,#fff,#f8fcff)}
+.admin-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:14px}
+.admin-head h3{font:700 21px Georgia,serif;margin:4px 0}
+.admin-help{font-size:10px;color:var(--muted);margin:0;max-width:650px}
+.login-form{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-top:16px}
+.login-form label{font-size:9px;color:var(--muted)}
+.login-form input{display:block;width:100%;height:39px;margin-top:5px;border:1px solid var(--line);border-radius:9px;padding:0 10px;font-size:11px;color:var(--ink)}
+.login-form .btn{border:0;cursor:pointer;height:39px;white-space:nowrap}
+.admin-message{font-size:9px;color:#607b90;margin-top:9px}
+#uploadPanel{margin-top:18px}
+#uploadPanel .upload-layout{margin-top:0}
+@media(max-width:800px){.login-form{grid-template-columns:1fr}.admin-head{display:block}.admin-head .clear-btn{margin-top:10px}}
+
 </style>
 </head>
 <body>
@@ -79,7 +99,7 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
       <div class="brand-mark">♧</div>
       <div><strong>Biologie in real life</strong><span>Apprendre • Comprendre • Réussir</span></div>
     </a>
-    <nav><a href="#accueil">Accueil</a><a href="#cours">Cours</a><a href="#modeles">Modèles 3D</a><a href="#qcm">QCM</a><a href="#ressources">Ressources</a><a href="#bibliotheque">Bibliothèque</a><a href="#apropos">À propos</a></nav>
+    <nav><a href="#accueil">Accueil</a><a href="#cours">Cours</a><a href="#modeles">Modèles 3D</a><a href="#qcm">QCM</a><a href="#ressources">Ressources</a><a href="#apropos">À propos</a></nav>
     <div class="nav-tools"><input class="search" placeholder="Rechercher un cours..."><button class="round">☼</button><a class="contact" href="#contact">♡ Contact</a></div>
   </div>
 </header>
@@ -150,7 +170,7 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
       <div class="tools">
         <a class="tool" href="#cours"><div class="qicon">▣</div><div><b>Voir les cours</b><small>Tout le contenu pédagogique</small></div></a>
         <a class="tool" href="#modeles"><div class="qicon">◇</div><div><b>Modèles 3D</b><small>Explorer en 3D (sélectionnés)</small></div></a>
-        <a class="tool" id="qcm" href="#"><div class="qicon">✓</div><div><b>QCM</b><small>Tester vos connaissances</small></div></a>
+        <a class="tool id="qcm" href="#"><div class="qicon">✓</div><div><b>QCM</b><small>Tester vos connaissances</small></div></a>
         <a class="tool href" href="#ressources"><div class="qicon">▤</div><div><b>Ressources</b><small>Documents, liens et outils</small></div></a>
       </div>
     </div>
@@ -159,63 +179,91 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
 </section>
 
 
+
 <section id="bibliotheque">
 <div class="container">
   <span class="section-label">Bibliothèque numérique</span>
   <div class="section-title">
-    <h2>Déposer et organiser vos documents</h2>
+    <h2>Cours et ressources</h2>
     <a href="#cours">Retour aux cours →</a>
   </div>
-  <p class="sub">Ajoutez vos fiches, polycopiés, cours et travaux pratiques depuis votre appareil.</p>
+  <p class="sub">Retrouvez ici les documents publiés sur le site. Les visiteurs peuvent les consulter ou les télécharger.</p>
 
-  <div class="upload-layout">
-    <div class="upload-card">
-      <div class="upload-icon">↑</div>
-      <h3>Ajouter un document</h3>
-      <p>Glissez-déposez vos fichiers ici ou choisissez-les depuis votre appareil.</p>
-
-      <label class="dropzone" id="dropzone" for="fileInput">
-        <input id="fileInput" type="file" multiple
-               accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip,.jpg,.jpeg,.png">
-        <span class="drop-title">Choisir des fichiers</span>
-        <span class="drop-sub">PDF, Word, PowerPoint, Excel, images ou ZIP</span>
-      </label>
-
-      <div class="upload-options">
-        <label>
-          <span>Catégorie</span>
-          <select id="category">
-            <option>Cours</option>
-            <option>Fiches de révision</option>
-            <option>Travaux pratiques</option>
-            <option>Polycopiés</option>
-            <option>Ressources</option>
-          </select>
-        </label>
-        <button class="btn primary" id="addFiles" type="button">Ajouter à la bibliothèque</button>
+  <div class="library-public-card">
+    <div class="library-head">
+      <div>
+        <span class="mini-label">Documents disponibles</span>
+        <h3>Bibliothèque</h3>
       </div>
-      <div class="upload-note">Les fichiers sélectionnés restent sur cet appareil dans cette version. Pour un dépôt partagé entre étudiants, connectez un stockage cloud/backend.</div>
+      <button class="clear-btn" id="refreshLibrary" type="button">Actualiser</button>
+    </div>
+    <div id="publicFileList" class="file-list">
+      <div class="empty-files"><div>▤</div><strong>Chargement…</strong><span>Récupération des documents.</span></div>
+    </div>
+  </div>
+
+  <div class="admin-box" id="adminBox">
+    <div class="admin-head">
+      <div>
+        <span class="mini-label">Espace propriétaire</span>
+        <h3>Gérer les documents</h3>
+        <p class="admin-help">Connectez-vous pour publier des fichiers depuis votre téléphone. Après publication, ils apparaissent dans la bibliothèque publique.</p>
+      </div>
+      <button class="clear-btn" id="logoutBtn" type="button" hidden>Déconnexion</button>
     </div>
 
-    <div class="library-card">
-      <div class="library-head">
-        <div>
-          <span class="mini-label">Mes documents</span>
-          <h3>Bibliothèque</h3>
+    <form id="loginForm" class="login-form">
+      <label>Email administrateur
+        <input id="adminEmail" type="email" autocomplete="username" placeholder="votre@email.com" required>
+      </label>
+      <label>Mot de passe
+        <input id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••" required>
+      </label>
+      <button class="btn primary" type="submit">Se connecter</button>
+      <div id="loginMessage" class="admin-message"></div>
+    </form>
+
+    <div id="uploadPanel" hidden>
+      <div class="upload-layout">
+        <div class="upload-card">
+          <div class="upload-icon">↑</div>
+          <h3>Publier un document</h3>
+          <p>Choisissez un ou plusieurs fichiers depuis votre téléphone.</p>
+          <label class="dropzone" id="dropzone" for="fileInput">
+            <input id="fileInput" type="file" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip,.jpg,.jpeg,.png">
+            <span class="drop-title">Choisir des fichiers</span>
+            <span class="drop-sub">PDF, Word, PowerPoint, Excel, images ou ZIP</span>
+          </label>
+          <div class="upload-options">
+            <label><span>Catégorie</span>
+              <select id="category">
+                <option>Cours</option>
+                <option>Fiches de révision</option>
+                <option>Travaux pratiques</option>
+                <option>Polycopiés</option>
+                <option>Ressources</option>
+              </select>
+            </label>
+            <button class="btn primary" id="addFiles" type="button">Publier</button>
+          </div>
+          <div id="uploadMessage" class="admin-message"></div>
+          <div class="upload-note">Les fichiers sont stockés en ligne. Ils deviennent accessibles aux visiteurs après publication.</div>
         </div>
-        <button class="clear-btn" id="clearFiles" type="button">Tout supprimer</button>
-      </div>
-      <div id="fileList" class="file-list">
-        <div class="empty-files">
-          <div>▤</div>
-          <strong>Aucun document ajouté</strong>
-          <span>Vos fichiers apparaîtront ici.</span>
+
+        <div class="library-card">
+          <div class="library-head">
+            <div><span class="mini-label">Administration</span><h3>Mes publications</h3></div>
+          </div>
+          <div id="adminFileList" class="file-list">
+            <div class="empty-files"><div>▤</div><strong>Chargement…</strong></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 </section>
+
 
 <section id="apropos">
 <div class="container">
@@ -237,107 +285,211 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
 </div>
 </footer>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (() => {
-  const input = document.getElementById('fileInput');
-  const addBtn = document.getElementById('addFiles');
-  const list = document.getElementById('fileList');
-  const zone = document.getElementById('dropzone');
-  const category = document.getElementById('category');
-  const clearBtn = document.getElementById('clearFiles');
+  /*
+    CONFIGURATION SUPABASE
+    1) Créez un projet sur Supabase.
+    2) Remplacez les deux valeurs ci-dessous par celles de votre projet.
+    3) Créez le bucket Storage "library".
+    4) Créez la table "library_files" et les policies indiquées dans le guide fourni avec ce fichier.
+  */
+  const SUPABASE_URL = "YOUR_SUPABASE_URL";
+  const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+  const BUCKET = "library";
 
-  // IndexedDB is used so selected files can remain available on this device.
-  const DB_NAME = 'biologieBibliotheque';
-  const STORE = 'documents';
-  let db;
+  const publicList = document.getElementById("publicFileList");
+  const adminList = document.getElementById("adminFileList");
+  const loginForm = document.getElementById("loginForm");
+  const uploadPanel = document.getElementById("uploadPanel");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const loginMessage = document.getElementById("loginMessage");
+  const uploadMessage = document.getElementById("uploadMessage");
+  const fileInput = document.getElementById("fileInput");
+  const category = document.getElementById("category");
+  const addFiles = document.getElementById("addFiles");
+  const refreshBtn = document.getElementById("refreshLibrary");
+  const dropzone = document.getElementById("dropzone");
 
-  const openDB = () => new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB_NAME, 1);
-    req.onupgradeneeded = () => req.result.createObjectStore(STORE, {keyPath:'id', autoIncrement:true});
-    req.onsuccess = () => { db=req.result; resolve(db); };
-    req.onerror = () => reject(req.error);
+  if (!window.supabase || SUPABASE_URL.includes("YOUR_")) {
+    publicList.innerHTML = '<div class="empty-files"><div>⚙</div><strong>Bibliothèque à configurer</strong><span>Ajoutez vos identifiants Supabase dans le fichier index.html.</span></div>';
+    return;
+  }
+
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[c]));
+  }
+
+  function sizeLabel(bytes) {
+    if (!bytes) return "";
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + " KB";
+    return (bytes/1024/1024).toFixed(1) + " MB";
+  }
+
+  function publicUrl(path) {
+    return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+  }
+
+  function fileIcon(name) {
+    const ext = (name.split(".").pop() || "").toLowerCase();
+    if (ext === "pdf") return "PDF";
+    if (["doc","docx"].includes(ext)) return "W";
+    if (["ppt","pptx"].includes(ext)) return "P";
+    if (["xls","xlsx"].includes(ext)) return "X";
+    if (["jpg","jpeg","png"].includes(ext)) return "IMG";
+    return "▤";
+  }
+
+  function row(item, admin=false) {
+    const url = publicUrl(item.storage_path);
+    return `<div class="file-row">
+      <div class="file-type">${fileIcon(item.file_name)}</div>
+      <div>
+        <div class="file-name" title="${escapeHtml(item.file_name)}">${escapeHtml(item.title || item.file_name)}</div>
+        <div class="file-meta">${escapeHtml(item.category || "Ressources")} · ${sizeLabel(item.size_bytes)}</div>
+      </div>
+      <div class="file-actions">
+        <a href="${url}" target="_blank" rel="noopener">Ouvrir</a>
+        ${admin ? `<button type="button" data-delete="${escapeHtml(item.id)}" data-path="${escapeHtml(item.storage_path)}">Supprimer</button>` : ""}
+      </div>
+    </div>`;
+  }
+
+  async function loadPublic() {
+    publicList.innerHTML = '<div class="empty-files"><div>↻</div><strong>Chargement…</strong></div>';
+    const {data, error} = await sb.from("library_files").select("*").order("created_at", {ascending:false});
+    if (error) {
+      publicList.innerHTML = `<div class="empty-files"><div>!</div><strong>Impossible de charger les documents</strong><span>${escapeHtml(error.message)}</span></div>`;
+      return;
+    }
+    if (!data.length) {
+      publicList.innerHTML = '<div class="empty-files"><div>▤</div><strong>Aucun document publié</strong><span>Les nouveaux cours apparaîtront ici.</span></div>';
+      return;
+    }
+    publicList.innerHTML = data.map(x => row(x)).join("");
+  }
+
+  async function loadAdmin() {
+    const {data, error} = await sb.from("library_files").select("*").order("created_at", {ascending:false});
+    if (error) {
+      adminList.innerHTML = `<div class="empty-files"><strong>Erreur</strong><span>${escapeHtml(error.message)}</span></div>`;
+      return;
+    }
+    adminList.innerHTML = data.length ? data.map(x => row(x,true)).join("") :
+      '<div class="empty-files"><div>▤</div><strong>Aucune publication</strong><span>Publiez votre premier document.</span></div>';
+    adminList.querySelectorAll("[data-delete]").forEach(btn => {
+      btn.addEventListener("click", () => deleteFile(btn.dataset.delete, btn.dataset.path));
+    });
+  }
+
+  async function syncAuth() {
+    const {data:{session}} = await sb.auth.getSession();
+    const logged = !!session;
+    loginForm.hidden = logged;
+    uploadPanel.hidden = !logged;
+    logoutBtn.hidden = !logged;
+    if (logged) {
+      loginMessage.textContent = "Connecté.";
+      await loadAdmin();
+    }
+  }
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    loginMessage.textContent = "Connexion…";
+    const email = document.getElementById("adminEmail").value.trim();
+    const password = document.getElementById("adminPassword").value;
+    const {error} = await sb.auth.signInWithPassword({email,password});
+    loginMessage.textContent = error ? error.message : "Connexion réussie.";
+    if (!error) await syncAuth();
   });
 
-  const tx = (mode='readonly') => db.transaction(STORE, mode).objectStore(STORE);
+  logoutBtn.addEventListener("click", async () => {
+    await sb.auth.signOut();
+    await syncAuth();
+  });
 
-  function sizeLabel(bytes){
-    if(bytes < 1024) return bytes+' B';
-    if(bytes < 1024*1024) return (bytes/1024).toFixed(1)+' KB';
-    return (bytes/1024/1024).toFixed(1)+' MB';
-  }
+  addFiles.addEventListener("click", async () => {
+    const files = [...fileInput.files];
+    if (!files.length) {
+      uploadMessage.textContent = "Choisissez au moins un fichier.";
+      return;
+    }
+    addFiles.disabled = true;
+    uploadMessage.textContent = "Publication en cours…";
 
-  function typeLabel(name){
-    const ext=(name.split('.').pop()||'FILE').toUpperCase();
-    return ext.length>4 ? 'FILE' : ext;
-  }
-
-  async function refresh(){
-    const req=tx().getAll();
-    req.onsuccess=()=>{
-      const docs=req.result||[];
-      if(!docs.length){
-        list.innerHTML='<div class="empty-files"><div>▤</div><strong>Aucun document ajouté</strong><span>Vos fichiers apparaîtront ici.</span></div>';
-        return;
+    for (const file of files) {
+      const safeName = file.name.replace(/[^\w.\-()À-ÿ ]+/g, "_");
+      const path = `${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+      const upload = await sb.storage.from(BUCKET).upload(path, file, {upsert:false});
+      if (upload.error) {
+        uploadMessage.textContent = "Erreur pour " + file.name + " : " + upload.error.message;
+        continue;
       }
-      list.innerHTML=docs.map(d=>`
-        <div class="file-row">
-          <div class="file-type">${typeLabel(d.name)}</div>
-          <div>
-            <div class="file-name" title="${escapeHtml(d.name)}">${escapeHtml(d.name)}</div>
-            <div class="file-meta">${escapeHtml(d.category)} · ${sizeLabel(d.size)}</div>
-          </div>
-          <div class="file-actions">
-            <a href="#" data-open="${d.id}">Ouvrir</a>
-            <button type="button" data-delete="${d.id}">Supprimer</button>
-          </div>
-        </div>`).join('');
-    };
-  }
 
-  function escapeHtml(s){
-    return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-  }
+      const insert = await sb.from("library_files").insert({
+        title: file.name.replace(/\.[^/.]+$/, ""),
+        file_name: file.name,
+        category: category.value,
+        storage_path: path,
+        size_bytes: file.size
+      });
 
-  async function addFiles(files){
-    if(!files.length) return;
-    const store=tx('readwrite');
-    for(const file of files){
-      store.add({name:file.name,size:file.size,type:file.type,category:category.value,blob:file,addedAt:Date.now()});
+      if (insert.error) {
+        await sb.storage.from(BUCKET).remove([path]);
+        uploadMessage.textContent = "Erreur d'enregistrement : " + insert.error.message;
+        continue;
+      }
     }
-    store.transaction.oncomplete=refresh;
-    input.value='';
-  }
 
-  addBtn.addEventListener('click',()=>addFiles([...input.files]));
-  zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag')});
-  zone.addEventListener('dragleave',()=>zone.classList.remove('drag'));
-  zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag');addFiles([...e.dataTransfer.files])});
-
-  list.addEventListener('click',e=>{
-    const open=e.target.closest('[data-open]');
-    const del=e.target.closest('[data-delete]');
-    if(open){
-      e.preventDefault();
-      const req=tx().get(Number(open.dataset.open));
-      req.onsuccess=()=>{const d=req.result;if(d){const url=URL.createObjectURL(d.blob);window.open(url,'_blank');setTimeout(()=>URL.revokeObjectURL(url),60000)}};
-    }
-    if(del){
-      const req=tx('readwrite').delete(Number(del.dataset.delete));
-      req.onsuccess=refresh;
-    }
+    fileInput.value = "";
+    uploadMessage.textContent = "Publication terminée.";
+    addFiles.disabled = false;
+    await loadPublic();
+    await loadAdmin();
   });
 
-  clearBtn.addEventListener('click',()=>{
-    if(confirm('Supprimer tous les documents enregistrés sur cet appareil ?')){
-      const req=tx('readwrite').clear(); req.onsuccess=refresh;
+  async function deleteFile(id, path) {
+    if (!confirm("Supprimer ce document du site ?")) return;
+    const storage = await sb.storage.from(BUCKET).remove([path]);
+    if (storage.error) {
+      alert(storage.error.message);
+      return;
     }
+    const {error} = await sb.from("library_files").delete().eq("id", id);
+    if (error) {
+      alert(error.message);
+      return;
+    }
+    await loadPublic();
+    await loadAdmin();
+  }
+
+  ["dragenter","dragover"].forEach(ev => dropzone.addEventListener(ev, e => {
+    e.preventDefault(); dropzone.classList.add("drag");
+  }));
+  ["dragleave","drop"].forEach(ev => dropzone.addEventListener(ev, e => {
+    e.preventDefault(); dropzone.classList.remove("drag");
+  }));
+  dropzone.addEventListener("drop", e => {
+    if (e.dataTransfer.files.length) fileInput.files = e.dataTransfer.files;
   });
 
-  openDB().then(refresh).catch(()=>{
-    list.innerHTML='<div class="empty-files"><strong>Le stockage local n’est pas disponible.</strong><span>Vous pouvez toujours sélectionner les fichiers.</span></div>';
-  });
+  refreshBtn.addEventListener("click", loadPublic);
+  sb.auth.onAuthStateChange(() => syncAuth());
+
+  loadPublic();
+  syncAuth();
 })();
 </script>
+
 
 </body>
 </html>
