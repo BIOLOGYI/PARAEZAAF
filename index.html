@@ -8,8 +8,6 @@
 :root{--blue:#1688e8;--blue2:#eaf6ff;--pink:#f38bb5;--pink2:#fff0f6;--ink:#16324f;--muted:#6d8196;--line:#dceaf5;--white:#fff;--shadow:0 14px 38px rgba(30,91,135,.08)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}a{text-decoration:none;color:inherit}.container{width:min(1120px,calc(100% - 40px));margin:auto}
 header{height:72px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.96);position:sticky;top:0;z-index:10}
-<header>
-  <img src="images/profile.jpg" alt="Profile" class="profile-img">
 .nav{height:100%;display:flex;align-items:center;gap:28px}.brand{display:flex;align-items:center;gap:12px;margin-right:auto}.brand-mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#dff3ff,#fff0f7);display:grid;place-items:center;color:var(--blue);font-size:21px}.brand strong{font-family:Georgia,serif;font-size:18px}.brand span{display:block;color:var(--muted);font-size:10px}
 nav{display:flex;gap:22px;font-size:12px;font-weight:600;color:#294862}nav a:hover{color:var(--blue)}.nav-tools{display:flex;align-items:center;gap:10px}.search{width:175px;padding:9px 12px;border:1px solid var(--line);border-radius:22px;color:#8ba0b3;font-size:11px}.round{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:white}.contact{border:1px solid #f0a0c0;background:var(--pink2);color:#d94f82;padding:9px 16px;border-radius:22px;font-size:11px;font-weight:700}
 .hero{background:linear-gradient(115deg,#f5fbff 0%,#fff 58%,#fff5f9 100%);overflow:hidden}.hero-grid{min-height:335px;display:grid;grid-template-columns:1.02fr .98fr;align-items:center}.eyebrow{display:inline-block;background:var(--pink2);color:#d95182;padding:6px 11px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:12px}.hero h1{font:700 clamp(38px,5vw,58px)/1.05 Georgia,serif;margin:0 0 15px;color:#173653;letter-spacing:-1.5px}.hero p{font-family:Georgia,serif;color:#45647e;font-size:15px;max-width:570px}.facts{display:flex;gap:22px;margin:20px 0}.fact{display:flex;gap:10px;align-items:center;padding-right:20px;border-right:1px solid #bfd4e5;font-size:11px}.fact:last-child{border:0}.icon{width:28px;height:28px;border-radius:50%;background:#e7f5ff;color:var(--blue);display:grid;place-items:center}.fact b{display:block}.fact small{color:var(--muted)}.actions{display:flex;gap:10px}.btn{display:inline-flex;padding:10px 18px;border-radius:22px;font-size:11px;font-weight:700}.primary{background:linear-gradient(90deg,#168be9,#f08ab4);color:white}.outline{border:1px solid #a9c8df;color:#24587c;background:#fff}.hero-art{height:100%;min-height:335px;display:flex;align-items:center;justify-content:center;padding:0 0 0 30px}.hero-art img{width:100%;height:100%;object-fit:cover;object-position:right center;border-radius:0 0 0 45%}
@@ -20,6 +18,8 @@ section{padding:58px 0}.section-label{display:inline-block;background:var(--pink
 footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradient(90deg,#f5fbff,#fff7fb);padding:30px 0}.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px}.footer-brand{font:700 18px Georgia,serif}.footer p,.footer a{font-size:10px;color:var(--muted)}.footer h4{font-size:11px;margin:0 0 10px}.copy{border-top:1px solid var(--line);margin-top:25px;padding-top:14px;display:flex;justify-content:space-between;color:#8ba0b3;font-size:9px}
 @media(max-width:900px){nav,.search{display:none}.hero-grid{grid-template-columns:1fr}.hero-art{min-height:240px;padding:0}.hero-art img{border-radius:0;height:240px}.facts{flex-wrap:wrap}.quick{grid-template-columns:1fr 1fr}.quick a:nth-child(2){border:0}.cards{grid-template-columns:1fr 1fr}.two,.footer-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.container{width:min(100% - 24px,1120px)}header{height:62px}.brand strong{font-size:15px}.hero h1{font-size:39px}.facts{gap:10px}.fact{border:0;padding:0}.quick{grid-template-columns:1fr;padding:12px}.quick a{border:0;padding:8px}.cards{grid-template-columns:1fr}.two{grid-template-columns:1fr}.tools{grid-template-columns:1fr 1fr}.copy{display:block}.copy span{display:block;margin-top:5px}}
+
+.profile-img{width:45px;height:45px;border-radius:50%;object-fit:cover}
 
 /* Pure CSS academic books */
 .hero-art{position:relative;min-height:335px;display:flex;align-items:center;justify-content:center;padding:25px 35px;overflow:hidden}
@@ -35,17 +35,13 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
 .bookmark{position:absolute;right:50px;top:19px;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid #e5edf4;color:#e26b99;font-size:23px;box-shadow:0 8px 22px rgba(30,91,135,.08);z-index:3}
 @media(max-width:900px){.hero-art{min-height:270px}.books-scene{height:225px}}
 @media(max-width:560px){.hero-art{min-height:235px;padding:10px}.books-scene{transform:scale(.84);height:205px}}
-.profile-img {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+
 </style>
 </head>
 <body>
 <header>
   <div class="container nav">
+    <img src="images/profile.jpg" alt="Profile" class="profile-img">
     <a class="brand" href="#">
       <div class="brand-mark">♧</div>
       <div><strong>Biologie in real life</strong><span>Apprendre • Comprendre • Réussir</span></div>
@@ -129,6 +125,10 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
 </div>
 </section>
 
+
+
+
+
 <section id="bibliotheque">
 <div class="container">
   <span class="section-label">Bibliothèque</span>
@@ -143,8 +143,8 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
       <a class="file-row" href="files/biologie-cellulaire.pdf" target="_blank" rel="noopener">
         <div class="file-type">PDF</div>
         <div>
-          <div class="file-name">biochimie</div>
-          <div class="file-meta">Cours · pdf</div>
+          <div class="file-name">Biologie cellulaire</div>
+          <div class="file-meta">Cours · PDF</div>
         </div>
         <div class="file-actions"><span>Ouvrir</span></div>
       </a>
@@ -172,6 +172,10 @@ footer{margin-top:35px;border-top:1px solid var(--line);background:linear-gradie
   <div class="copy"><span>© 2025 Biologie in real life. Tous droits réservés.</span><span>♡ Créé avec passion pour les étudiants</span></div>
 </div>
 </footer>
+
+
+
+
 
 <script>
 // ===== GOOGLE SHEETS =====
